@@ -10,3 +10,4 @@
 #ignorer le dossier metadata
 metadata/
 Temp/
+Library/metadata/
