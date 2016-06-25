@@ -40,9 +40,10 @@ La classe Skills
 
 La classe SKills défini le focntionnement des skills des personnages. Contient des méthodes permettant de faire gaggner de l'expérience au personnage, et de faire levelup les compétences.
 
+Ajout d'un fichier .gitignore : éditez-le pour ignorer certains fichiers lors du git push
+
 Known issues :
 - Problèmes avec la gestions de la souris et du sol lorsque que la caméra est à une hauteur y différente de 50
-
 
 
 
