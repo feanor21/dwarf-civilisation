@@ -40,24 +40,13 @@ public class MouseFollower : MonoBehaviour {
 
 	void OnTriggerStay(Collider other){
 		
-			if (other.tag == "Untagged") {
-				if (Input.GetMouseButtonDown (1)) {
-					Debug.Log("clique dehors");
-					GameObject[] dwarfs=gameController.getSelectedDwarf();
-					if(dwarfs!=null){
-						int i;
-						for(i=0;i<dwarfs.Length;i++){
-							dwarfs[i].GetComponent<DwarfController>().updateJobStatut("idle");
-							//dwarfs[i].GetComponent<DwarfController>().setjobplace();
-							
-							
-						}
-						justclick();
-					}
-					
-				}
+
+		if (other.tag == "farm") {
+			if (Input.GetMouseButtonDown (1)) {
+				Debug.Log ("right click on farm");
+				Debug.Log ("is dward selected? " + gameController.isdwarfselected ());
 			}
-		
+		}
 
 
 		//Debug.Log(""+other.tag);
@@ -85,6 +74,23 @@ public class MouseFollower : MonoBehaviour {
 				}
 			}
 
+		}
+		if (other.tag == "Untagged") {
+			if (Input.GetMouseButtonDown (1)) {
+				Debug.Log("clique dehors");
+				GameObject[] dwarfs=gameController.getSelectedDwarf();
+				if(dwarfs!=null){
+					int i;
+					for(i=0;i<dwarfs.Length;i++){
+						dwarfs[i].GetComponent<DwarfController>().updateJobStatut("idle");
+						//dwarfs[i].GetComponent<DwarfController>().setjobplace();
+
+
+					}
+					justclick();
+				}
+
+			}
 		}
 
 

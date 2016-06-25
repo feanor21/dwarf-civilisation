@@ -44,8 +44,10 @@ public class GameController : MonoBehaviour {
 
 	//*****************************************************************************************//
 	public bool isdwarfselected(){
-		if (currentlyselected[0] != null)
+		if (currentlyselected [0] != null) {
+			//Debug.Log ("dawrf is selected");
 			return true;
+		}
 
 		return false;
 	}

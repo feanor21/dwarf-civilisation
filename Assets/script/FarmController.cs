@@ -12,6 +12,7 @@ public class FarmController : MonoBehaviour {
 	private int currentfoodstock;
 	private int maxfoodstock;
 	public float SkillUpRate;
+	private bool[,] isfoodplacefill;
 	// Use this for initialization
 	void Start () {
 		fill = 0.0f; //On start avec de la meeeerde !!!!
@@ -19,6 +20,12 @@ public class FarmController : MonoBehaviour {
 		dwarfOnDuty = false;
 		dwarf = null;
 		currentfoodstock = 0;
+	
+		isfoodplacefill = new bool[(int)transform.localScale.x*2,(int)transform.localScale.z*2];
+		Debug.Log ("place pour la nouriturre en x:" + (int)transform.localScale.x*2);
+		Debug.Log ("place pour la nouriturre en z:" + (int)transform.localScale.z*2);
+		calc_max_food_stock ();
+		Debug.Log ("max food stock: " + maxfoodstock);
 	}
 
 	public void initDwarf(GameObject df){
@@ -35,10 +42,33 @@ public class FarmController : MonoBehaviour {
 
 	void calc_max_food_stock() {
 
-		maxfoodstock = ((int)transform.localScale.x * (int)transform.localScale.z);
+		maxfoodstock = ((int)transform.localScale.x*2 * (int)transform.localScale.z*2);
 
 	}
 
+	public int add_food(){
+		int i, j;
+		for (i = 0; i < (int)transform.localScale.x*2; i++) {
+			for (j = 0; j < (int)transform.localScale.z*2; j++) {
+				if (isfoodplacefill [i, j] == true) {
+					Debug.Log ("place de nourriture déja prise");
+				}
+				if (isfoodplacefill [i, j] == false){
+					Vector3 instantiatefoodplace = new Vector3 ();
+					instantiatefoodplace.y = transform.position.y;
+					//repére l'emplacement pour faire pop la bouffe
+					instantiatefoodplace.x=transform.position.x-transform.localScale.x*2+i*4;
+					instantiatefoodplace.z=transform.position.z-transform.localScale.z*2+j*4;
+
+					Instantiate(food,instantiatefoodplace, Quaternion.identity);
+					Debug.Log ("spawning food");
+					isfoodplacefill [i, j] = true;
+					return 0;
+				}
+			}
+		}
+		return 1;
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -65,7 +95,11 @@ public class FarmController : MonoBehaviour {
 		if (fill >= 100 && currentfoodstock<=maxfoodstock) {
 			Debug.Log("current food stock =" +currentfoodstock);
 			Debug.Log ("max food on this farm :" + maxfoodstock);
-			Instantiate(food, transform.position, Quaternion.identity);
+			int tryfood=add_food ();
+			if (tryfood == 0)
+				Debug.Log ("food correctly spawn");
+			if (tryfood == 1)
+				Debug.Log ("no place for more food");
 			Debug.Log("position pour la bouffe :" + transform.position + " " + Quaternion.identity);
 			fill = 0;
 			currentfoodstock++;
