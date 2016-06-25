@@ -47,20 +47,6 @@ public class MouseFollower : MonoBehaviour {
 				Debug.Log ("is dward selected? " + gameController.isdwarfselected ());
 			}
 		}
-
-
-		//Debug.Log(""+other.tag);
-		if (other.tag == "dwarf") {
-			if (Input.GetMouseButtonDown (0)) {
-				//Debug.Log("MousePressed");
-				name=other.gameObject.name;
-				gameController.select_dwarf(name);
-				if (gameController.isdwarfselected () == true)
-				Debug.Log ("dwarf is selected");
-			}
-
-
-		}
 		if (other.tag == "farm" && gameController.isdwarfselected()==true) {
 			if(Input.GetMouseButtonDown(1)){
 				GameObject[] dwarfs=gameController.getSelectedDwarf();
@@ -75,6 +61,20 @@ public class MouseFollower : MonoBehaviour {
 			}
 
 		}
+
+		//Debug.Log(""+other.tag);
+		if (other.tag == "dwarf") {
+			if (Input.GetMouseButtonDown (0)) {
+				//Debug.Log("MousePressed");
+				name=other.gameObject.name;
+				gameController.select_dwarf(name);
+				if (gameController.isdwarfselected () == true)
+				Debug.Log ("dwarf is selected");
+			}
+
+
+		}
+
 		if (other.tag == "Untagged") {
 			if (Input.GetMouseButtonDown (1)) {
 				Debug.Log("clique dehors");
