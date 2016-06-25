@@ -53,7 +53,7 @@ public class Skills : MonoBehaviour {
 		float[] skillsExp = new float[skill_length];
 		for (i=0; i<skillsExp.Length; i++) {
 			skillsExp[i]=0.00f;
-			Debug.Log("skills xp de "+i+" = "+skillsExp[i]);
+			//Debug.Log("skills xp de "+i+" = "+skillsExp[i]);
 			if(skillsExp==null)Debug.Log("skillsxp null afetr initialising");
 		}
 		return skillsExp;

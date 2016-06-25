@@ -27,6 +27,7 @@ public class FarmController : MonoBehaviour {
 		dwarf = df;
 		if(skills != null)
 		Debug.Log ("dwarf initialized");
+		Debug.Log ("dwarf job status :" + dwarf.GetComponent<DwarfController> ().getjob ());
 
 		calc_max_food_stock ();
 		if(SkillUpRate<1)SkillUpRate=1;
@@ -34,7 +35,7 @@ public class FarmController : MonoBehaviour {
 
 	void calc_max_food_stock() {
 
-		maxfoodstock = ((int)transform.localScale.x + (int)transform.localScale.y + (int)transform.localScale.z) * 2;
+		maxfoodstock = ((int)transform.localScale.x * (int)transform.localScale.z);
 
 	}
 
@@ -54,7 +55,7 @@ public class FarmController : MonoBehaviour {
 
 		if (dwarfOnDuty) {
 
-			if(skills==null)Debug.Log("skills is nulll!!!");
+			//if(skills==null)Debug.Log("skills is nulll!!!");
 		
 			fill += skills.getSkillLvl(0); //0 is Farming skill, /60 'cause we call 60 times per second Update();
 			//Debug.Log("skill level = "+skills.getSkillLvl(0));
@@ -63,7 +64,9 @@ public class FarmController : MonoBehaviour {
 		}
 		if (fill >= 100 && currentfoodstock<=maxfoodstock) {
 			Debug.Log("current food stock =" +currentfoodstock);
+			Debug.Log ("max food on this farm :" + maxfoodstock);
 			Instantiate(food, transform.position, Quaternion.identity);
+			Debug.Log("position pour la bouffe :" + transform.position + " " + Quaternion.identity);
 			fill = 0;
 			currentfoodstock++;
 			gamecontroller.update_food_record();
@@ -75,6 +78,7 @@ public class FarmController : MonoBehaviour {
 			if(other.GetComponent<DwarfController>().getjob()=="farming"){
 				dwarfOnDuty=true;
 				Debug.Log("dwarf is working");
+				Debug.Log ("max food on this farm :" + maxfoodstock);
 			}
 
 		}

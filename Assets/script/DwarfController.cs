@@ -124,6 +124,7 @@ public class DwarfController : MonoBehaviour {
 		movescript.setpos (jobplace);
 		while (readyToWork() && jobstatut!="idle") {
 			Debug.Log(jobplace);
+			Debug.Log ("jobstatut = "+jobstatut);
 			Debug.Log("Siffler en travaillant!! tululululululut");
 
 			yield return new WaitForSeconds (5);

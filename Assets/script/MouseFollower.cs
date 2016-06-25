@@ -39,7 +39,7 @@ public class MouseFollower : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider other){
-
+		
 			if (other.tag == "Untagged") {
 				if (Input.GetMouseButtonDown (1)) {
 					Debug.Log("clique dehors");
@@ -66,7 +66,8 @@ public class MouseFollower : MonoBehaviour {
 				//Debug.Log("MousePressed");
 				name=other.gameObject.name;
 				gameController.select_dwarf(name);
-
+				if (gameController.isdwarfselected () == true)
+				Debug.Log ("dwarf is selected");
 			}
 
 
@@ -76,6 +77,7 @@ public class MouseFollower : MonoBehaviour {
 				GameObject[] dwarfs=gameController.getSelectedDwarf();
 				int i;
 				for(i=0;i<dwarfs.Length;i++){
+					Debug.Log("updtaing dwrf statut");
 					dwarfs[i].GetComponent<DwarfController>().updateJobStatut("farming");
 					dwarfs[i].GetComponent<DwarfController>().setjobplace(other.transform.position);
 					dwarfs[i].GetComponent<DwarfController>().startwork();
