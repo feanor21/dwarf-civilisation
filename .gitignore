@@ -1,4 +1,4 @@
- ligne commençant par '#' sont des commentaires.
+﻿ ligne commençant par '#' sont des commentaires.
  # Ignorer tous les fichiers nommés foo.txt
  foo.txt
  # Ignorer tous les fichiers html
@@ -7,3 +7,5 @@
  !foo.html
  # Ignorer les objets et les archives
  *.[oa]
+#ignorer le dossier metadata
+ Library/metadata/*
