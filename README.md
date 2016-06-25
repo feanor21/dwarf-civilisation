@@ -1,5 +1,5 @@
 # dwarf-civilisation
-a game inspired by dwarf fortress on unity
+A game inspired by dwarf fortress on unity
 
 Devellop a game on unity, inspired by dwarf forteress.
 
@@ -40,7 +40,8 @@ La classe Skills
 
 La classe SKills défini le focntionnement des skills des personnages. Contient des méthodes permettant de faire gaggner de l'expérience au personnage, et de faire levelup les compétences.
 
-
+Known issues :
+- Problèmes avec la gestions de la souris et du sol lorsque que la caméra est à une hauteur y différente de 50
 
 
 
