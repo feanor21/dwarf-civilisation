@@ -8,4 +8,5 @@
  # Ignorer les objets et les archives
  *.[oa]
 #ignorer le dossier metadata
-/metadata
+metadata/
+Temp/
