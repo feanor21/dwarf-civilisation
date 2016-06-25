@@ -12,13 +12,15 @@ public class FarmController : MonoBehaviour {
 	private int currentfoodstock;
 	private int maxfoodstock;
 	public float SkillUpRate;
+	private string status
 	// Use this for initialization
 	void Start () {
-		fill = 0.0f; //On start avec de la meeeerde !!!!
+		fill = 0.0f; //On start avec de la meeeerde !!!!(ferme pas remplie)
 		isActive = true; //Actif de base...
 		dwarfOnDuty = false;
 		dwarf = null;
 		currentfoodstock = 0;
+		status="empty"//other status are "plow"(labourer), "sow" (semer), "growing" (croissance), "too harvest" (prét à récolter)
 	}
 
 	public void initDwarf(GameObject df){
@@ -31,9 +33,9 @@ public class FarmController : MonoBehaviour {
 		calc_max_food_stock ();
 		if(SkillUpRate<1)SkillUpRate=1;
 	}
-
+	
 	void calc_max_food_stock() {
-
+//la nourriture maximal est fonction de la taille de la ferme
 		maxfoodstock = ((int)transform.localScale.x + (int)transform.localScale.y + (int)transform.localScale.z) * 2;
 
 
