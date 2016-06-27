@@ -7,7 +7,9 @@ public class DwarfController : MonoBehaviour {
 	string HungerStatus;
 	string sleepStatut;
 	int time;
+	public int inventory_max_size;
 	//public int sleepTime;
+	private Inventory inventory;
 	public GameController gameController;
 	public GUIText statuts;
 	bool changeHungerstatut=true;
@@ -28,7 +30,8 @@ public class DwarfController : MonoBehaviour {
 
 	//*****************************************************************************************//
 	void Start () {
-
+		inventory = new Inventory ();
+		inventory.setInventorySize (inventory_max_size);
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
 		if (gameControllerObject != null)
 		{
@@ -84,9 +87,23 @@ public class DwarfController : MonoBehaviour {
 			other.GetComponent<FarmController> ().initDwarf (gameObject);
 			other.GetComponent<FarmController> ().dwarfOnDuty = true;
 		}
+		if (other.tag=="item"){
+			Debug.Log ("j'essaye de mettre la nourriture dans mon sac");
+			inventory.addToInventory (other.gameObject);
+			Debug.Log ("j'ai mis la nourriture dans mon sac!!!");
+		}
+		if (other.tag=="entrepot"){
+			Debug.Log ("trouvé ou poser");
+			if (inventory.getInventory() != null) {
+				Debug.Log ("je vais poser l'item");
+				inventory.getItemBack(inventory.getInventory()[0],other.transform.position);	
+			}
+
+		}
 
 	}
-	
+
+
 		public bool isavailable(){
 
 		if (iseating)

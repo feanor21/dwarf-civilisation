@@ -51,7 +51,9 @@
      <Compile Include="Assets\script\FarmController.cs" />
      <Compile Include="Assets\script\GameController.cs" />
      <Compile Include="Assets\script\Horloge.cs" />
+     <Compile Include="Assets\script\Inventory.cs" />
      <Compile Include="Assets\script\MouseFollower.cs" />
+     <Compile Include="Assets\script\ObjectTransporter.cs" />
      <Compile Include="Assets\script\Skills.cs" />
      <Compile Include="Assets\script\eatscript.cs" />
      <Compile Include="Assets\script\sleepscript.cs" />

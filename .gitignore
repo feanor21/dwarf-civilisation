@@ -8,6 +8,10 @@
  # Ignorer les objets et les archives
  *.[oa]
 #ignorer le dossier metadata
+Library/assetDatabase3
+Library/metadata/00/00000000000000004000000000000000
+Library/shadercompiler-UnityShaderCompiler.exe0.log
+
 metadata/
 Temp/
 Library/metadata/
