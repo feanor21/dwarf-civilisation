@@ -72,7 +72,7 @@ public class MouseFollower : MonoBehaviour {
 
 		}
 
-		if (other.tag == "Untagged") {
+		if (other.tag == "ground") {
 			if (Input.GetMouseButtonDown (1)) {
 				Debug.Log("clique dehors");
 				GameObject[] dwarfs=gameController.getSelectedDwarf();
@@ -125,7 +125,7 @@ public class MouseFollower : MonoBehaviour {
             for (int i = 0; i < hits.Length; i++)
             {
                 RaycastHit hit = hits[i];
-                if (hit.transform.tag == "farm" || hit.transform.tag == "Untagged")
+                if (hit.transform.tag == "farm" || hit.transform.tag == "ground")
                 {
                     OnTriggerStay(hit.collider);
                 }

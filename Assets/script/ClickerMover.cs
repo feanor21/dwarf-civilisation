@@ -22,27 +22,32 @@ public class ClickerMover : MonoBehaviour {
 	void Update () {
 		float step = speed * Time.deltaTime;
 
-		if (selected ) {
+
+        if (selected ) {
 			if( dwarfcontroller.isavailable()){
 				if (Input.GetMouseButtonDown (1)) {
 					moveset = true;
 					mouse_position = Input.mousePosition;
 					mouse_positionX = mouse_position.x - Screen.width / 2;
 					mouse_positionZ = mouse_position.y - Screen.height / 2;
-
-
-					pos = Input.mousePosition;
-					pos.z = 50;
-					pos = Camera.main.ScreenToWorldPoint (pos);
-					//ray = new Ray(pos, Vector3.down);
-					//Debug.Log (pos);
-					
-				}
+                    RaycastHit[] targetSelectedPlace = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+                    for (int i = 0; i < targetSelectedPlace.Length; i++)
+                    {
+                        RaycastHit hit = targetSelectedPlace[i];
+                        if (dwarfcontroller.isawake() && hit.transform.tag == "ground")
+                        {
+                            Debug.Log("We are moving");
+                            pos = hit.point;
+                        }
+                    }
+                }
 			}
 		}
-		if(moveset && dwarfcontroller.isawake())
-		transform.position = Vector3.MoveTowards(transform.position, pos, step);
-	}
+        if (moveset && dwarfcontroller.isawake())
+        {
+            transform.position = Vector3.MoveTowards(transform.position, pos, step);
+        }
+    }
 
 	public void setpos(Vector3 dir){
 		pos = dir;
