@@ -19,15 +19,8 @@ public class MouseFollower : MonoBehaviour {
 		{
 			Debug.Log ("Cannot find 'GameController' script");
 		}
-
 		canclick = true;
 	}
-	/*void Updatemousepos(){
-		pos = Input.mousePosition;
-		pos.z = 50;
-		pos = Camera.main.ScreenToWorldPoint(pos);
-		transform.position = pos;
-	}*/
 
 	public IEnumerator justclick(){
 		canclick = false;
@@ -36,8 +29,6 @@ public class MouseFollower : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider other){
-		
-
 		if (other.tag == "farm") {
 			if (Input.GetMouseButtonDown (1)) {
 				Debug.Log ("right click on farm");
@@ -53,10 +44,8 @@ public class MouseFollower : MonoBehaviour {
 					dwarfs[i].GetComponent<DwarfController>().updateJobStatut("farming");
 					dwarfs[i].GetComponent<DwarfController>().setjobplace(other.transform.position);
 					dwarfs[i].GetComponent<DwarfController>().startwork();
-
 				}
 			}
-
 		}
 
 		//Debug.Log(""+other.tag);
@@ -68,8 +57,6 @@ public class MouseFollower : MonoBehaviour {
 				if (gameController.isdwarfselected () == true)
 				Debug.Log ("dwarf is selected");
 			}
-
-
 		}
 
 		if (other.tag == "ground") {
@@ -80,23 +67,16 @@ public class MouseFollower : MonoBehaviour {
 					int i;
 					for(i=0;i<dwarfs.Length;i++){
 						dwarfs[i].GetComponent<DwarfController>().updateJobStatut("idle");
-						//dwarfs[i].GetComponent<DwarfController>().setjobplace();
-
-
 					}
 					justclick();
 				}
-
 			}
 		}
-
-
 	}
+
 	void onTriggerEnter(Collider2D  other){
 		Debug.Log(""+other.tag);
-
-
-	}
+    }
 
 	void onTrigger(Collider other){
 		Debug.Log ("collide !!! "+other.tag);
@@ -105,7 +85,6 @@ public class MouseFollower : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //Updatemousepos ();
         RaycastHit[] hits;
         if (Input.GetMouseButtonDown(0))
         {

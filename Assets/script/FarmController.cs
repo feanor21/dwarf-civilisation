@@ -70,14 +70,14 @@ public class FarmController : MonoBehaviour {
 		return 1;
 	}
 
-	// Update is called once per frame
+   	// Update is called once per frame
 	void Update () {
 		if(dwarfOnDuty){
-			if(dwarf.GetComponent<DwarfController>().getjob()!="farming")
-				dwarfOnDuty=false;
+            if (dwarf.GetComponent<DwarfController>().getjob() != "farming")
+                dwarfOnDuty =false;
 		}
 
-		if (dwarfOnDuty == false && dwarf != null) {
+        if (dwarfOnDuty == false && dwarf != null && this.GetComponent<Collider>().bounds.Contains(dwarf.gameObject.transform.position)) {
 			if(dwarf.GetComponent<DwarfController>().getjob()=="farming")
 				dwarfOnDuty=true;
 		}
@@ -106,7 +106,8 @@ public class FarmController : MonoBehaviour {
 			gamecontroller.update_food_record();
 		}
 	}
-	void onTriggerEnter(Collider other){
+
+	void OnTriggerEnter(Collider other){
 		Debug.Log ("la ferme !!!" + other.tag);
 		if (other.tag == "dwarf") {
 			if(other.GetComponent<DwarfController>().getjob()=="farming"){
@@ -126,13 +127,12 @@ public class FarmController : MonoBehaviour {
 	}
 
 
-	void onTriggerExit(Collider other){
-		Debug.Log ("dwarf exit the farm!!!");
+	void OnTriggerExit(Collider other){
+		Debug.Log ("exiting the farm!!!");
 		if (other.tag == "dwarf") {
-			if(other.GetComponent<DwarfController>().getjob()=="farming"){
-				dwarfOnDuty=false;
-				Debug.Log("dwarf no longerr working");
-			}
+            Debug.Log("dwarf exit the farm!!!");
+            dwarfOnDuty=false;
+			Debug.Log("dwarf no longerr working");
 		}
 		if (other.tag == "food") {
 			currentfoodstock--;
