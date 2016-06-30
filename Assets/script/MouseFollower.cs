@@ -9,7 +9,7 @@ public class MouseFollower : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Updatemousepos ();
+		//Updatemousepos ();
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
 		if (gameControllerObject != null)
 		{
@@ -22,15 +22,12 @@ public class MouseFollower : MonoBehaviour {
 
 		canclick = true;
 	}
-	void Updatemousepos(){
+	/*void Updatemousepos(){
 		pos = Input.mousePosition;
 		pos.z = 50;
 		pos = Camera.main.ScreenToWorldPoint(pos);
 		transform.position = pos;
-
-
-
-	}
+	}*/
 
 	public IEnumerator justclick(){
 		canclick = false;
@@ -105,8 +102,34 @@ public class MouseFollower : MonoBehaviour {
 		Debug.Log ("collide !!! "+other.tag);
 	}
 
-	// Update is called once per frame
-	void Update () {
-		Updatemousepos ();
-	}
+    // Update is called once per frame
+    void Update()
+    {
+        //Updatemousepos ();
+        RaycastHit[] hits;
+        if (Input.GetMouseButtonDown(0))
+        {
+            hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+            for (int i = 0; i < hits.Length; i++)
+            {
+                RaycastHit hit = hits[i];
+                if (hit.transform.tag == "dwarf")
+                {
+                    OnTriggerStay(hit.collider);
+                }
+            }
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+            for (int i = 0; i < hits.Length; i++)
+            {
+                RaycastHit hit = hits[i];
+                if (hit.transform.tag == "farm" || hit.transform.tag == "Untagged")
+                {
+                    OnTriggerStay(hit.collider);
+                }
+            }
+        }
+    }
 }
