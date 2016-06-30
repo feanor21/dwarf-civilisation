@@ -113,10 +113,7 @@ public class MouseFollower : MonoBehaviour {
             for (int i = 0; i < hits.Length; i++)
             {
                 RaycastHit hit = hits[i];
-                if (hit.transform.tag == "dwarf")
-                {
-                    OnTriggerStay(hit.collider);
-                }
+                OnTriggerStay(hit.collider);
             }
         }
         if (Input.GetMouseButtonDown(1))
@@ -125,10 +122,7 @@ public class MouseFollower : MonoBehaviour {
             for (int i = 0; i < hits.Length; i++)
             {
                 RaycastHit hit = hits[i];
-                if (hit.transform.tag == "farm" || hit.transform.tag == "ground")
-                {
-                    OnTriggerStay(hit.collider);
-                }
+                OnTriggerStay(hit.collider);
             }
         }
     }

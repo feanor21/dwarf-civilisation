@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class ClickerMover : MonoBehaviour {
+
 	private Vector3 mouse_position;
 	private float mouse_positionX;
 	private float mouse_positionZ;
@@ -11,18 +12,15 @@ public class ClickerMover : MonoBehaviour {
 	Vector3 pos;
 	private bool moveset=false;
 	DwarfController dwarfcontroller;
+
 	// Use this for initialization
 	void Start () {
-
-		dwarfcontroller = gameObject.GetComponent <DwarfController>();
-
+        dwarfcontroller = gameObject.GetComponent <DwarfController>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		float step = speed * Time.deltaTime;
-
-
         if (selected ) {
 			if( dwarfcontroller.isavailable()){
 				if (Input.GetMouseButtonDown (1)) {
@@ -36,7 +34,6 @@ public class ClickerMover : MonoBehaviour {
                         RaycastHit hit = targetSelectedPlace[i];
                         if (dwarfcontroller.isawake() && hit.transform.tag == "ground")
                         {
-                            Debug.Log("We are moving");
                             pos = hit.point;
                         }
                     }
@@ -53,25 +50,21 @@ public class ClickerMover : MonoBehaviour {
         }
     }
 
-	public void setpos(Vector3 dir){
+	public void setpos(Vector3 dir){    
 		pos = dir;
 		moveset = true;
 		//Debug.Log ("move to " + pos);
-
 	}
 
 	public void select(){
 		selected = true;
-		}
-	public void unselect(){
+    }
+
+    public void unselect(){
 		selected = false;
-		}
+	}
 
 	public bool isselected(){
 		return selected;
 	}
-
-
-
-
 }
