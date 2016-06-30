@@ -46,6 +46,10 @@ public class ClickerMover : MonoBehaviour {
         if (moveset && dwarfcontroller.isawake())
         {
             transform.position = Vector3.MoveTowards(transform.position, pos, step);
+            if(transform.position == pos)
+            {
+                moveset = false;
+            }
         }
     }
 
