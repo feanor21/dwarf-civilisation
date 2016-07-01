@@ -16,7 +16,8 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		//select = false;
 		currentlyselected = new ClickerMover[50];
-		update_food_record ();
+		update_food_record();
+        update_bed_record();
 		Debug.Log ("foodstock :" + foodstock);
 	}
 	//*****************************************************************************************//
@@ -45,7 +46,7 @@ public class GameController : MonoBehaviour {
 
     public void update_bed_record(){
         bedStock = GameObject.FindGameObjectsWithTag("lit").Length;
-        bedlist = new GameObject[bedstock];
+        bedlist = new GameObject[bedStock];
         bedlist = GameObject.FindGameObjectsWithTag("lit");
         Debug.Log("bedStock :" + foodstock);
     }

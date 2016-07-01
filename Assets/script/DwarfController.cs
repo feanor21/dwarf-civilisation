@@ -20,6 +20,7 @@ public class DwarfController : MonoBehaviour {
 	public int timebeforeeat;
 	ClickerMover movescript;
 	public bool iseating;
+    public bool isSleaping;
 	GameObject TargetFood;
 	private string jobstatut;
 	private Vector3 jobplace;
@@ -51,7 +52,7 @@ public class DwarfController : MonoBehaviour {
 		eatscript = gameObject.GetComponent<eatscript> ();
 		sleepscript = gameObject.GetComponent<sleepscript> ();
 		iseating = false;
-
+        isSleaping = false;
 	}
 	public void setcurrentjob(string s){
 		currentjob = s;
@@ -111,7 +112,7 @@ public class DwarfController : MonoBehaviour {
 
 		public bool isavailable(){
 
-		if (iseating)
+		if (iseating || isSleaping)
 			return false;
 
 
@@ -216,17 +217,16 @@ public class DwarfController : MonoBehaviour {
 	}
 
     private void changeSleepingStatus_(){
-        if (sleepStatut == "Awake")
-        {
+        if (sleepStatut == "Awake"){
             sleepStatut = "Sleepy";
             updateStatutText();
             return;
-        }else if (HungerStatus == "Sleepy")
-        {
+        }
+        else if (HungerStatus == "Sleepy"){
             sleepStatut = "Wanna Sleeeep !!";
             updateStatutText();
             return;
-        }else die();
+        }else if (sleepStatut == "Wanna Sleeeep !!") die();
     }
     //*****************************************************************//
 
@@ -258,11 +258,11 @@ public class DwarfController : MonoBehaviour {
 			}
 		}
         if (horloge.gettime() % timebeforesleep == 0) {
-            if (changeSleepingStatus && sleepStatut != "Sleeping") {
+            if (changeSleepingStatus && isSleaping==false) {
                 changeSleepingStatus_();
-                changeHungerstatut = false;
+                changeSleepingStatus = false;
             }
-            if (sleepStatut == "Sleepy"){
+            if (sleepStatut == "Sleepy" && isSleaping == false){
                 Debug.Log("Going to sleep !");
                 sleepscript.startsleep();
             }	
