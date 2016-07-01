@@ -120,6 +120,20 @@ public class FarmController : MonoBehaviour {
 	
 	}
 
+    void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "dwarf")
+        {
+            if (other.GetComponent<DwarfController>().getjob() == "farming" && other.GetComponent<DwarfController>().GetSleepStatut() == "Awake" && other.GetComponent<DwarfController>().getHungerStatus() != "starved" && other.GetComponent<DwarfController>().getHungerStatus() != "starving" && other.GetComponent<DwarfController>().getHungerStatus() != "en digestion")
+            {
+                dwarfOnDuty = true;
+            }
+            else if (other.GetComponent<DwarfController>().GetSleepStatut() == "Sleeping" || other.GetComponent<DwarfController>().getjob() == "on Break" || other.GetComponent<DwarfController>().getHungerStatus() != "en digestion")
+            {
+                dwarfOnDuty = false;
+            }
+        }
+    }
 
 	void update_currentfoodStock(){
 

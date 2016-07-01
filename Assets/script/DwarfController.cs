@@ -65,7 +65,11 @@ public class DwarfController : MonoBehaviour {
 	public void setHungerStatus(string s){
 		HungerStatus = s;
 	}
-	public Vector3 getjobplace(){
+    public string getHungerStatus()
+    {
+        return HungerStatus;
+    }
+    public Vector3 getjobplace(){
 		return jobplace;
 	}
 	public Vector3 getPosBeforeEat(){
