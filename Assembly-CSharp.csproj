@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\litcontroller.cs" />
      <Compile Include="Assets\script\Camera_Controller.cs" />
      <Compile Include="Assets\script\ClickerMover.cs" />
      <Compile Include="Assets\script\DwarfController.cs" />

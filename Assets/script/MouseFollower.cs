@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MouseFollower : MonoBehaviour {
 	Vector3 pos;
-	string name;
+	string dwarfName;
 	private GameController gameController;
 	bool canclick;
 
@@ -47,8 +47,8 @@ public class MouseFollower : MonoBehaviour {
         if (other.tag == "dwarf"){
 			if (Input.GetMouseButtonDown (0)){
 				//Debug.Log("MousePressed");
-				name=other.gameObject.name;
-				gameController.select_dwarf(name);
+				dwarfName=other.gameObject.name;
+				gameController.select_dwarf(dwarfName);
 				if (gameController.isdwarfselected () == true)
 				Debug.Log ("dwarf is selected");
 			}
