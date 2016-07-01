@@ -136,7 +136,7 @@ public class DwarfController : MonoBehaviour {
 
 	public void die(){
 		Destroy (gameObject);
-		Debug.Log ("dwarf is die");
+		Debug.Log ("dwarf is dead");
 	}
 
 

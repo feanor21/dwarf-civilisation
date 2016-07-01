@@ -11,12 +11,9 @@ public class MouseFollower : MonoBehaviour {
 	void Start () {
 		//Updatemousepos ();
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
-		if (gameControllerObject != null)
-		{
+		if (gameControllerObject != null){ 
 			gameController = gameControllerObject.GetComponent <GameController>();
-		}
-		if (gameController == null)
-		{
+		}if (gameController == null){
 			Debug.Log ("Cannot find 'GameController' script");
 		}
 		canclick = true;
@@ -30,12 +27,12 @@ public class MouseFollower : MonoBehaviour {
 
 	void OnTriggerStay(Collider other){
 		if (other.tag == "farm") {
-			if (Input.GetMouseButtonDown (1)) {
+			if (Input.GetMouseButtonDown (1)){
 				Debug.Log ("right click on farm");
 				Debug.Log ("is dward selected? " + gameController.isdwarfselected ());
 			}
 		}
-		if (other.tag == "farm" && gameController.isdwarfselected()==true) {
+        if (other.tag == "farm" && gameController.isdwarfselected()==true) {
 			if(Input.GetMouseButtonDown(1)){
 				GameObject[] dwarfs=gameController.getSelectedDwarf();
 				int i;
@@ -47,10 +44,8 @@ public class MouseFollower : MonoBehaviour {
 				}
 			}
 		}
-
-		//Debug.Log(""+other.tag);
-		if (other.tag == "dwarf") {
-			if (Input.GetMouseButtonDown (0)) {
+        if (other.tag == "dwarf"){
+			if (Input.GetMouseButtonDown (0)){
 				//Debug.Log("MousePressed");
 				name=other.gameObject.name;
 				gameController.select_dwarf(name);
@@ -58,9 +53,8 @@ public class MouseFollower : MonoBehaviour {
 				Debug.Log ("dwarf is selected");
 			}
 		}
-
-		if (other.tag == "ground") {
-			if (Input.GetMouseButtonDown (1)) {
+		if (other.tag == "ground"){
+			if (Input.GetMouseButtonDown (1)){
 				Debug.Log("clique dehors");
 				GameObject[] dwarfs=gameController.getSelectedDwarf();
 				if(dwarfs!=null){
@@ -86,20 +80,16 @@ public class MouseFollower : MonoBehaviour {
     void Update()
     {
         RaycastHit[] hits;
-        if (Input.GetMouseButtonDown(0))
-        {
+        if (Input.GetMouseButtonDown(0)){
             hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
-            for (int i = 0; i < hits.Length; i++)
-            {
+            for (int i = 0; i < hits.Length; i++){
                 RaycastHit hit = hits[i];
                 OnTriggerStay(hit.collider);
             }
         }
-        if (Input.GetMouseButtonDown(1))
-        {
+        if (Input.GetMouseButtonDown(1)){
             hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
-            for (int i = 0; i < hits.Length; i++)
-            {
+            for (int i = 0; i < hits.Length; i++){
                 RaycastHit hit = hits[i];
                 OnTriggerStay(hit.collider);
             }

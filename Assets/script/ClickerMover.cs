@@ -12,48 +12,47 @@ public class ClickerMover : MonoBehaviour {
 	Vector3 pos;
 	private bool moveset=false;
 	DwarfController dwarfcontroller;
+    bool posSet = false;
 
 	// Use this for initialization
 	void Start () {
         dwarfcontroller = gameObject.GetComponent <DwarfController>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		float step = speed * Time.deltaTime;
-        if (selected ) {
-			if( dwarfcontroller.isavailable()){
-				if (Input.GetMouseButtonDown (1)) {
-					moveset = true;
-					mouse_position = Input.mousePosition;
-					mouse_positionX = mouse_position.x - Screen.width / 2;
-					mouse_positionZ = mouse_position.y - Screen.height / 2;
+
+    // Update is called once per frame
+    void Update(){
+        float step = speed * Time.deltaTime;
+        if (selected){
+            if (dwarfcontroller.isavailable()){
+                if (Input.GetMouseButtonDown(1)){
+                    moveset = true;
+                    mouse_position = Input.mousePosition;
+                    mouse_positionX = mouse_position.x - Screen.width / 2;
+                    mouse_positionZ = mouse_position.y - Screen.height / 2;
                     RaycastHit[] targetSelectedPlace = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
-                    for (int i = 0; i < targetSelectedPlace.Length; i++)
-                    {
+                    for (int i = 0; i < targetSelectedPlace.Length; i++){
                         RaycastHit hit = targetSelectedPlace[i];
-                        if (dwarfcontroller.isawake() && hit.transform.tag == "ground")
-                        {
+                        if (dwarfcontroller.isawake() && hit.transform.tag == "ground"){
                             pos = hit.point;
                         }
                     }
                 }
-			}
-		}
-        if (moveset && dwarfcontroller.isawake())
-        {
-            transform.position = Vector3.MoveTowards(transform.position, pos, step);
-            if(transform.position == pos)
-            {
-                moveset = false;
+            }
+        }if (moveset && dwarfcontroller.isawake()){
+            if (dwarfcontroller.getHungerStatus() == "satieted" || dwarfcontroller.getHungerStatus() == "fine" || posSet){
+                transform.position = Vector3.MoveTowards(transform.position, pos, step);
+                if (transform.position == pos){
+                    moveset = false;
+                    posSet = false;
+                }
             }
         }
     }
 
 	public void setpos(Vector3 dir){    
 		pos = dir;
-		moveset = true;
-		//Debug.Log ("move to " + pos);
+        moveset = true;
+        posSet = true;
 	}
 
 	public void select(){
