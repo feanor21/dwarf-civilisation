@@ -19,7 +19,13 @@ public class sleepscript : MonoBehaviour {
 		dwarfcontroller = gameObject.GetComponent<DwarfController> ();
 	}
 
+    private void searchForBed(){
+        GameObject[] foodlist = gameController.getBedList();
+        return;
+    }
+
 	public void startsleep(){
+        searchForBed();
 		StartCoroutine (sleep());
 	}
 

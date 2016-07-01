@@ -8,8 +8,10 @@ public class GameController : MonoBehaviour {
 	ClickerMover[] currentlyselected;
 	GameObject[] foodlist;
 	GameObject[] dwarfselectedstock;
+    GameObject[] bedlist;
 	public float speed;
 	private int foodstock;
+    private int bedStock;
 	// Use this for initialization
 	void Start () {
 		//select = false;
@@ -41,6 +43,12 @@ public class GameController : MonoBehaviour {
 
 	}
 
+    public void update_bed_record(){
+        bedStock = GameObject.FindGameObjectsWithTag("lit").Length;
+        bedlist = new GameObject[bedstock];
+        bedlist = GameObject.FindGameObjectsWithTag("lit");
+        Debug.Log("bedStock :" + foodstock);
+    }
 
 	//*****************************************************************************************//
 	public bool isdwarfselected(){
@@ -60,15 +68,25 @@ public class GameController : MonoBehaviour {
 		
 		return foodstock;
 	}
+
+    public int getBedStock()
+    {
+        return bedStock;
+    }
 	//*****************************************************************************************//
 
 	public GameObject[] getfoodList(){
 		return foodlist;
 	}
 
-	//*****************************************************************************************//
+    public GameObject[] getBedList()
+    {
+        return bedlist;
+    }
 
-	public void addselected(ClickerMover cm){
+    //*****************************************************************************************//
+
+    public void addselected(ClickerMover cm){
 		int i = 0;
 		while (currentlyselected[i]!=null) {
 			i++;
