@@ -13,12 +13,14 @@ public class DwarfController : MonoBehaviour {
 	public GameController gameController;
 	public GUIText statuts;
 	bool changeHungerstatut=true;
-	Horloge horloge;
+    bool changeSleepingStatus = true;
+    Horloge horloge;
 	public int timebeforesleep;
 	//public int eatduration;
 	public int timebeforeeat;
 	ClickerMover movescript;
 	public bool iseating;
+    public bool isSleaping;
 	GameObject TargetFood;
 	private string jobstatut;
 	private Vector3 jobplace;
@@ -50,7 +52,7 @@ public class DwarfController : MonoBehaviour {
 		eatscript = gameObject.GetComponent<eatscript> ();
 		sleepscript = gameObject.GetComponent<sleepscript> ();
 		iseating = false;
-
+        isSleaping = false;
 	}
 	public void setcurrentjob(string s){
 		currentjob = s;
@@ -65,7 +67,11 @@ public class DwarfController : MonoBehaviour {
 	public void setHungerStatus(string s){
 		HungerStatus = s;
 	}
-	public Vector3 getjobplace(){
+    public string getHungerStatus()
+    {
+        return HungerStatus;
+    }
+    public Vector3 getjobplace(){
 		return jobplace;
 	}
 	public Vector3 getPosBeforeEat(){
@@ -106,7 +112,7 @@ public class DwarfController : MonoBehaviour {
 
 		public bool isavailable(){
 
-		if (iseating)
+		if (iseating || isSleaping)
 			return false;
 
 
@@ -132,7 +138,7 @@ public class DwarfController : MonoBehaviour {
 
 	public void die(){
 		Destroy (gameObject);
-		Debug.Log ("dwarf is die");
+		Debug.Log ("dwarf is dead");
 	}
 
 
@@ -192,12 +198,11 @@ public class DwarfController : MonoBehaviour {
 			updateStatutText();
 			return;
 		}
-			
 		if (HungerStatus == "satieted"){
 			HungerStatus = "fine";
-		updateStatutText();
-		return;
-	}
+		    updateStatutText();
+		    return;
+	    }
 		if(HungerStatus == "fine"){
 			HungerStatus = "Hungry";
 			updateStatutText();
@@ -208,21 +213,29 @@ public class DwarfController : MonoBehaviour {
 			updateStatutText();
 			return;
 		}
-		if (HungerStatus == "starving")
-			die ();
-		else
-			return;
-
+		if (HungerStatus == "starving") die ();
 	}
-	
-	//*****************************************************************//
+
+    private void changeSleepingStatus_(){
+        if (sleepStatut == "Awake"){
+            sleepStatut = "Sleepy";
+            updateStatutText();
+            return;
+        }
+        else if (HungerStatus == "Sleepy"){
+            sleepStatut = "Wanna Sleeeep !!";
+            updateStatutText();
+            return;
+        }else if (sleepStatut == "Wanna Sleeeep !!") die();
+    }
+    //*****************************************************************//
 
 
 
-	
-	//*****************************************************************//
 
-	public void updateStatutText(){
+    //*****************************************************************//
+
+    public void updateStatutText(){
 		statuts.text = "" + HungerStatus + "\n" + sleepStatut+"\n"+jobstatut;
 	}
 
@@ -233,10 +246,10 @@ public class DwarfController : MonoBehaviour {
 			return;
 
 		if ((horloge.gettime ()%timebeforeeat) == 0 ) {
-		//	Debug.Log("enter into hunger loop! at "+horloge.gettime ()+ "and bool = "+changeHungerstatut);
+		    //	Debug.Log("enter into hunger loop! at "+horloge.gettime ()+ "and bool = "+changeHungerstatut);
 			if(changeHungerstatut && iseating==false){
-			changeHunger_statut();
-				changeHungerstatut =false;
+			    changeHunger_statut();
+			    changeHungerstatut =false;
 			}
 
 			if(HungerStatus=="Hungry" && iseating==false){
@@ -244,21 +257,19 @@ public class DwarfController : MonoBehaviour {
 				eatscript.eat();
 			}
 		}
-			if (horloge.gettime ()% timebeforesleep == 0 ) {
-			//Debug.Log("Sleep");
-			//sleepStatut="Sleep";
-			if(sleepStatut=="Awake")
-			sleepscript.startsleep();
-				
-				
+        if (horloge.gettime() % timebeforesleep == 0) {
+            if (changeSleepingStatus && isSleaping==false) {
+                changeSleepingStatus_();
+                changeSleepingStatus = false;
+            }
+            if (sleepStatut == "Sleepy" && isSleaping == false){
+                Debug.Log("Going to sleep !");
+                sleepscript.startsleep();
+            }	
 		}
-				if (horloge.gettime ()%10 == 1 && changeHungerstatut==false )
-					changeHungerstatut =true;
-
-
-		
-	
-	}
+		if (horloge.gettime ()%10 == 1 && changeHungerstatut==false )  changeHungerstatut =true;
+        if (horloge.gettime() % 10 == 1 && changeSleepingStatus == false) changeSleepingStatus = true;
+    }
 
 	//*****************************************************************//
 

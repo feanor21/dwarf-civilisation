@@ -3,33 +3,20 @@ using System.Collections;
 
 public class MouseFollower : MonoBehaviour {
 	Vector3 pos;
-	string name;
+	string dwarfName;
 	private GameController gameController;
 	bool canclick;
 
 	// Use this for initialization
 	void Start () {
-		Updatemousepos ();
+		//Updatemousepos ();
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
-		if (gameControllerObject != null)
-		{
+		if (gameControllerObject != null){ 
 			gameController = gameControllerObject.GetComponent <GameController>();
-		}
-		if (gameController == null)
-		{
+		}if (gameController == null){
 			Debug.Log ("Cannot find 'GameController' script");
 		}
-
 		canclick = true;
-	}
-	void Updatemousepos(){
-		pos = Input.mousePosition;
-		pos.z = 50;
-		pos = Camera.main.ScreenToWorldPoint(pos);
-		transform.position = pos;
-
-
-
 	}
 
 	public IEnumerator justclick(){
@@ -39,15 +26,13 @@ public class MouseFollower : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider other){
-		
-
 		if (other.tag == "farm") {
-			if (Input.GetMouseButtonDown (1)) {
+			if (Input.GetMouseButtonDown (1)){
 				Debug.Log ("right click on farm");
 				Debug.Log ("is dward selected? " + gameController.isdwarfselected ());
 			}
 		}
-		if (other.tag == "farm" && gameController.isdwarfselected()==true) {
+        if (other.tag == "farm" && gameController.isdwarfselected()==true) {
 			if(Input.GetMouseButtonDown(1)){
 				GameObject[] dwarfs=gameController.getSelectedDwarf();
 				int i;
@@ -56,57 +41,58 @@ public class MouseFollower : MonoBehaviour {
 					dwarfs[i].GetComponent<DwarfController>().updateJobStatut("farming");
 					dwarfs[i].GetComponent<DwarfController>().setjobplace(other.transform.position);
 					dwarfs[i].GetComponent<DwarfController>().startwork();
-
 				}
 			}
-
 		}
-
-		//Debug.Log(""+other.tag);
-		if (other.tag == "dwarf") {
-			if (Input.GetMouseButtonDown (0)) {
+        if (other.tag == "dwarf"){
+			if (Input.GetMouseButtonDown (0)){
 				//Debug.Log("MousePressed");
-				name=other.gameObject.name;
-				gameController.select_dwarf(name);
+				dwarfName=other.gameObject.name;
+				gameController.select_dwarf(dwarfName);
 				if (gameController.isdwarfselected () == true)
 				Debug.Log ("dwarf is selected");
 			}
-
-
 		}
-
-		if (other.tag == "Untagged") {
-			if (Input.GetMouseButtonDown (1)) {
+		if (other.tag == "ground"){
+			if (Input.GetMouseButtonDown (1)){
 				Debug.Log("clique dehors");
 				GameObject[] dwarfs=gameController.getSelectedDwarf();
 				if(dwarfs!=null){
 					int i;
 					for(i=0;i<dwarfs.Length;i++){
 						dwarfs[i].GetComponent<DwarfController>().updateJobStatut("idle");
-						//dwarfs[i].GetComponent<DwarfController>().setjobplace();
-
-
 					}
 					justclick();
 				}
-
 			}
 		}
-
-
 	}
+
 	void onTriggerEnter(Collider2D  other){
 		Debug.Log(""+other.tag);
-
-
-	}
+    }
 
 	void onTrigger(Collider other){
 		Debug.Log ("collide !!! "+other.tag);
 	}
 
-	// Update is called once per frame
-	void Update () {
-		Updatemousepos ();
-	}
+    // Update is called once per frame
+    void Update()
+    {
+        RaycastHit[] hits;
+        if (Input.GetMouseButtonDown(0)){
+            hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+            for (int i = 0; i < hits.Length; i++){
+                RaycastHit hit = hits[i];
+                OnTriggerStay(hit.collider);
+            }
+        }
+        if (Input.GetMouseButtonDown(1)){
+            hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+            for (int i = 0; i < hits.Length; i++){
+                RaycastHit hit = hits[i];
+                OnTriggerStay(hit.collider);
+            }
+        }
+    }
 }

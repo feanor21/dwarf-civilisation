@@ -42,8 +42,8 @@ La classe SKills défini le focntionnement des skills des personnages. Contient 
 
 Ajout d'un fichier .gitignore : éditez-le pour ignorer certains fichiers lors du git push
 
-Known issues :
-- Problèmes avec la gestions de la souris et du sol lorsque que la caméra est à une hauteur y différente de 50
+CURRENTLY WORKING ON :
+- Le nain va dodo dans un lit !
 
 
 

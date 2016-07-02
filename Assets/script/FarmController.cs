@@ -20,7 +20,6 @@ public class FarmController : MonoBehaviour {
 		dwarfOnDuty = false;
 		dwarf = null;
 		currentfoodstock = 0;
-	
 		isfoodplacefill = new bool[(int)transform.localScale.x*2,(int)transform.localScale.z*2];
 		Debug.Log ("place pour la nouriturre en x:" + (int)transform.localScale.x*2);
 		Debug.Log ("place pour la nouriturre en z:" + (int)transform.localScale.z*2);
@@ -35,22 +34,19 @@ public class FarmController : MonoBehaviour {
 		if(skills != null)
 		Debug.Log ("dwarf initialized");
 		Debug.Log ("dwarf job status :" + dwarf.GetComponent<DwarfController> ().getjob ());
-
 		calc_max_food_stock ();
 		if(SkillUpRate<1)SkillUpRate=1;
 	}
 
 	void calc_max_food_stock() {
-
 		maxfoodstock = ((int)transform.localScale.x*2 * (int)transform.localScale.z*2);
-
 	}
 
 	public int add_food(){
 		int i, j;
 		for (i = 0; i < (int)transform.localScale.x*2; i++) {
 			for (j = 0; j < (int)transform.localScale.z*2; j++) {
-				if (isfoodplacefill [i, j] == true) {
+				if (isfoodplacefill [i, j] == true){
 					Debug.Log ("place de nourriture déja prise");
 				}
 				if (isfoodplacefill [i, j] == false){
@@ -59,7 +55,6 @@ public class FarmController : MonoBehaviour {
 					//repére l'emplacement pour faire pop la bouffe
 					instantiatefoodplace.x=transform.position.x-transform.localScale.x*2+i*4;
 					instantiatefoodplace.z=transform.position.z-transform.localScale.z*2+j*4;
-
 					Instantiate(food,instantiatefoodplace, Quaternion.identity);
 					Debug.Log ("spawning food");
 					isfoodplacefill [i, j] = true;
@@ -70,27 +65,19 @@ public class FarmController : MonoBehaviour {
 		return 1;
 	}
 
-	// Update is called once per frame
+   	// Update is called once per frame
 	void Update () {
 		if(dwarfOnDuty){
-			if(dwarf.GetComponent<DwarfController>().getjob()!="farming")
-				dwarfOnDuty=false;
+            if (dwarf.GetComponent<DwarfController>().getjob() != "farming")
+                dwarfOnDuty =false;
 		}
-
-		if (dwarfOnDuty == false && dwarf != null) {
+        if (dwarfOnDuty == false && dwarf != null && this.GetComponent<Collider>().bounds.Contains(dwarf.gameObject.transform.position)) {
 			if(dwarf.GetComponent<DwarfController>().getjob()=="farming")
 				dwarfOnDuty=true;
 		}
-
-
-		if (dwarfOnDuty) {
-
-			//if(skills==null)Debug.Log("skills is nulll!!!");
-		
+		if (dwarfOnDuty) {		
 			fill += skills.getSkillLvl(0); //0 is Farming skill, /60 'cause we call 60 times per second Update();
-			//Debug.Log("skill level = "+skills.getSkillLvl(0));
 			skills.addXp(1.0f/SkillUpRate, 0);
-
 		}
 		if (fill >= 100 && currentfoodstock<=maxfoodstock) {
 			Debug.Log("current food stock =" +currentfoodstock);
@@ -106,7 +93,8 @@ public class FarmController : MonoBehaviour {
 			gamecontroller.update_food_record();
 		}
 	}
-	void onTriggerEnter(Collider other){
+
+	void OnTriggerEnter(Collider other){
 		Debug.Log ("la ferme !!!" + other.tag);
 		if (other.tag == "dwarf") {
 			if(other.GetComponent<DwarfController>().getjob()=="farming"){
@@ -114,31 +102,31 @@ public class FarmController : MonoBehaviour {
 				Debug.Log("dwarf is working");
 				Debug.Log ("max food on this farm :" + maxfoodstock);
 			}
-
 		}
-	
 	}
 
+    void OnTriggerStay(Collider other){
+        if (other.tag == "dwarf"){
+            if (other.GetComponent<DwarfController>().getjob() == "farming" && other.GetComponent<DwarfController>().GetSleepStatut() == "Awake" && other.GetComponent<DwarfController>().getHungerStatus() != "starved" && other.GetComponent<DwarfController>().getHungerStatus() != "starving" && other.GetComponent<DwarfController>().getHungerStatus() != "en digestion"){
+                dwarfOnDuty = true;
+            }else if (other.GetComponent<DwarfController>().GetSleepStatut() == "Sleeping" || other.GetComponent<DwarfController>().getjob() == "on Break" || other.GetComponent<DwarfController>().getHungerStatus() != "en digestion"){
+                dwarfOnDuty = false;
+            }
+        }
+    }
 
 	void update_currentfoodStock(){
-
-
 	}
 
-
-	void onTriggerExit(Collider other){
-		Debug.Log ("dwarf exit the farm!!!");
+    void OnTriggerExit(Collider other){
+		Debug.Log ("exiting the farm!!!");
 		if (other.tag == "dwarf") {
-			if(other.GetComponent<DwarfController>().getjob()=="farming"){
-				dwarfOnDuty=false;
-				Debug.Log("dwarf no longerr working");
-			}
+            Debug.Log("dwarf exit the farm!!!");
+            dwarfOnDuty=false;
+			Debug.Log("dwarf no longerr working");
 		}
 		if (other.tag == "food") {
 			currentfoodstock--;
 		}
-
-
 	}
-
 }
