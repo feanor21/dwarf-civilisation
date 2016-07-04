@@ -255,7 +255,7 @@ public class DwarfController : MonoBehaviour
             updateStatutText();
             return;
         }
-        else if (HungerStatus == "Sleepy")
+        else if (sleepStatut == "Sleepy")
         {
             sleepStatut = "Wanna Sleeeep !!";
             updateStatutText();

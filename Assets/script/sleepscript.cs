@@ -31,26 +31,25 @@ public class sleepscript : MonoBehaviour {
     }
 
 	public void startsleep(){
+        dwarfcontroller.isSleaping = true;
         GameObject theBed = searchForBed();
         Debug.Log("Is Available ?" + theBed.GetComponent<litcontroller>().getAvailability());
         if(theBed != null && theBed.GetComponent<litcontroller>().getAvailability()){
             movescript.setpos(theBed.transform.position);
             theBed.GetComponent<litcontroller>().setInavailable();
-            Debug.Log("Moving to the bed" + dwarfcontroller.transform.position + ":::" + theBed.transform.position);
-            //while (dwarfcontroller.transform.position != theBed.transform.position) ;
-            Debug.Log("On the bed now !"+ dwarfcontroller.transform.position + ":::" + theBed.transform.position);
             StartCoroutine(sleep(theBed));
         }else{
             StartCoroutine(sleep(null));
         }
     }
 
-    public IEnumerator sleep(GameObject theBed){
-        if(theBed != null){
-            yield return new WaitForSeconds(sleepTime);
+    private IEnumerator sleep(GameObject theBed){
+        if (theBed != null){
+            yield return new WaitUntil(() => dwarfcontroller.transform.position == theBed.transform.position);
+            Debug.Log("On the bed !!" + dwarfcontroller.transform.position + ":::" + theBed.transform.position);
         }
-		dwarfcontroller.setSleepStatut("Sleeping");
-		dwarfcontroller.setcurrentjob(dwarfcontroller.getjob());
+        dwarfcontroller.setSleepStatut("Sleeping");
+        dwarfcontroller.setcurrentjob(dwarfcontroller.getjob());
 		dwarfcontroller.setjobstatut("on Break");
 		dwarfcontroller.updateStatutText();
 		Debug.Log (dwarfcontroller.getcurrentjob ());
@@ -60,12 +59,14 @@ public class sleepscript : MonoBehaviour {
             yield return new WaitForSeconds(sleepTime*2); //Si il est pas sur le lit ou qu'il y a pas de lit, il dors deux fois plus longtemps
         }
 		dwarfcontroller.setSleepStatut("Awake");
+        dwarfcontroller.isSleaping = false;
 		dwarfcontroller.setjobstatut (dwarfcontroller.getcurrentjob ());
 		dwarfcontroller.updateStatutText();
-		if (dwarfcontroller.getjobplace() != null) {
-			Debug.Log(dwarfcontroller.getjobplace());
-			dwarfcontroller.startwork();
-		}		
+        if (dwarfcontroller.getjobplace() != null)
+        {
+            Debug.Log(dwarfcontroller.getjobplace());
+            dwarfcontroller.startwork();
+        }
 	}
 	// Update is called once per frame
 	void Update () {
