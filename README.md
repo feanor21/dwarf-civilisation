@@ -45,9 +45,8 @@ Ajout d'un fichier .gitignore : éditez-le pour ignorer certains fichiers lors d
 CURRENTLY WORKING ON :
 - Le nain va dodo dans un lit !
 
+ACTUALLY :
+- Le nain dors dans le lit et retourne au travail par la suite
 
-
-
-
-
-
+KNOWN ISSUES :
+- Quand le nain va dodo, et que son status passe à "Hungry" ou supérieur, le nain ne va pas manger au réveil.
