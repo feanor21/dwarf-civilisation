@@ -14,6 +14,7 @@ public class litcontroller : MonoBehaviour {
 
     //Setters
     public void setNbPlaces(int nbPlacesToSet) { this.nbPlaces = nbPlacesToSet; }
+    public void setInavailable() { this.isAvailable = false; }
 
     //Controler On Places
     public int addDwarfOnBed(int nbDwarf){
@@ -30,6 +31,7 @@ public class litcontroller : MonoBehaviour {
     void Start () {
         isAvailable = true;
         nbPlaces = 1;
+        remaningPlace = nbPlaces;
     }
 
     // Update is called once per frame

@@ -32,29 +32,40 @@ public class sleepscript : MonoBehaviour {
 
 	public void startsleep(){
         GameObject theBed = searchForBed();
-        if(theBed != null){
+        Debug.Log("Is Available ?" + theBed.GetComponent<litcontroller>().getAvailability());
+        if(theBed != null && theBed.GetComponent<litcontroller>().getAvailability()){
             movescript.setpos(theBed.transform.position);
+            theBed.GetComponent<litcontroller>().setInavailable();
+            Debug.Log("Moving to the bed" + dwarfcontroller.transform.position + ":::" + theBed.transform.position);
+            //while (dwarfcontroller.transform.position != theBed.transform.position) ;
+            Debug.Log("On the bed now !"+ dwarfcontroller.transform.position + ":::" + theBed.transform.position);
+            StartCoroutine(sleep(theBed));
         }else{
-            StartCoroutine(sleep());
+            StartCoroutine(sleep(null));
         }
     }
 
-	public IEnumerator sleep(){
+    public IEnumerator sleep(GameObject theBed){
+        if(theBed != null){
+            yield return new WaitForSeconds(sleepTime);
+        }
 		dwarfcontroller.setSleepStatut("Sleeping");
 		dwarfcontroller.setcurrentjob(dwarfcontroller.getjob());
 		dwarfcontroller.setjobstatut("on Break");
 		dwarfcontroller.updateStatutText();
 		Debug.Log (dwarfcontroller.getcurrentjob ());
-		yield return new WaitForSeconds(sleepTime);
+        if (theBed != null && dwarfcontroller.transform.position != theBed.transform.position){
+            yield return new WaitForSeconds(sleepTime);
+        }else{
+            yield return new WaitForSeconds(sleepTime*2); //Si il est pas sur le lit ou qu'il y a pas de lit, il dors deux fois plus longtemps
+        }
 		dwarfcontroller.setSleepStatut("Awake");
 		dwarfcontroller.setjobstatut (dwarfcontroller.getcurrentjob ());
 		dwarfcontroller.updateStatutText();
 		if (dwarfcontroller.getjobplace() != null) {
 			Debug.Log(dwarfcontroller.getjobplace());
 			dwarfcontroller.startwork();
-		}
-		
-		
+		}		
 	}
 	// Update is called once per frame
 	void Update () {
