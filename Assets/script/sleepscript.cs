@@ -6,6 +6,7 @@ public class sleepscript : MonoBehaviour {
 	DwarfController dwarfcontroller; 
 	public int sleepTime;
     ClickerMover movescript;
+    litcontroller bedController;
     // Use this for initialization
     void Start () {
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
@@ -17,8 +18,9 @@ public class sleepscript : MonoBehaviour {
 		{
 			Debug.Log ("Cannot find 'GameController' script");
 		}
-		dwarfcontroller = gameObject.GetComponent<DwarfController> ();
+		dwarfcontroller = gameObject.GetComponent<DwarfController>();
         movescript = gameObject.GetComponent<ClickerMover>();
+        bedController = gameObject.GetComponent<litcontroller>();
     }
 
     private GameObject searchForBed(){
@@ -34,13 +36,12 @@ public class sleepscript : MonoBehaviour {
         dwarfcontroller.isSleaping = true;
         GameObject theBed = searchForBed();
         Debug.Log("Is Available ?" + theBed.GetComponent<litcontroller>().getAvailability());
-        if(theBed != null && theBed.GetComponent<litcontroller>().getAvailability()){
-            movescript.setpos(theBed.transform.position);
-            theBed.GetComponent<litcontroller>().setInavailable();
-            StartCoroutine(sleep(theBed));
-        }else{
-            StartCoroutine(sleep(null));
+        if ((theBed != null && theBed.GetComponent<litcontroller>().getAvailability())){
+            if (dwarfcontroller.transform.position != theBed.transform.position){
+                movescript.setpos(theBed.transform.position);
+            }
         }
+        StartCoroutine(sleep(theBed));
     }
 
     private IEnumerator sleep(GameObject theBed){
@@ -53,7 +54,7 @@ public class sleepscript : MonoBehaviour {
 		dwarfcontroller.setjobstatut("on Break");
 		dwarfcontroller.updateStatutText();
 		Debug.Log (dwarfcontroller.getcurrentjob ());
-        if (theBed != null && dwarfcontroller.transform.position != theBed.transform.position){
+        if (theBed != null && dwarfcontroller.transform.position == theBed.transform.position){
             yield return new WaitForSeconds(sleepTime);
         }else{
             yield return new WaitForSeconds(sleepTime*2); //Si il est pas sur le lit ou qu'il y a pas de lit, il dors deux fois plus longtemps

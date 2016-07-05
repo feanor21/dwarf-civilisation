@@ -311,7 +311,7 @@ public class DwarfController : MonoBehaviour
             }
         }
         if (horloge.gettime() % 10 == 1 && changeHungerstatut == false) changeHungerstatut = true;
-        if (horloge.gettime() % 10 == 1 && changeSleepingStatus == false) changeSleepingStatus = true;
+        if (horloge.gettime() % timebeforesleep == 0 && changeSleepingStatus == false) changeSleepingStatus = true;
     }
 
     //*****************************************************************//

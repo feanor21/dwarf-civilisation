@@ -55,8 +55,7 @@ public class litcontroller : MonoBehaviour {
 
     void OnTriggerStay(Collider other){
         if (other.tag == "dwarf"){
-            Debug.Log("Dwarf stay in bed");
-            isAvailable = false;
+            setInavailable();
         }
     }
 }
