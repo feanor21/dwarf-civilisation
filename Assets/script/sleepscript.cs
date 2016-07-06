@@ -32,9 +32,29 @@ public class sleepscript : MonoBehaviour {
         return null;
     }
 
-	public void startsleep(){
+    private GameObject getclosestbedposition(){
+        GameObject[] bedlist = gameController.getBedList();
+        Vector3 currentposition = transform.position;
+        int i;
+        int save = 0;
+        Vector3 bedsave = bedlist[0].transform.position;
+        Vector3 bedpos;
+        Debug.Log("foodlist lenght : " + bedlist.Length);
+        for (i = 0; i < bedlist.Length; i++)
+        {
+            bedpos = bedlist[i].transform.position;
+            if (Vector3.Distance(currentposition, bedpos) < Vector3.Distance(currentposition, bedsave)){
+                bedsave = bedpos;
+                save = i;
+            }
+        }
+        Debug.Log("bed position =" + bedlist[save].transform.position);
+        return bedlist[save];
+    }
+
+    public void startsleep(){
         dwarfcontroller.isSleaping = true;
-        GameObject theBed = searchForBed();
+        GameObject theBed = getclosestbedposition();
         Debug.Log("Is Available ?" + theBed.GetComponent<litcontroller>().getAvailability());
         if ((theBed != null && theBed.GetComponent<litcontroller>().getAvailability())){
             if (dwarfcontroller.transform.position != theBed.transform.position){
