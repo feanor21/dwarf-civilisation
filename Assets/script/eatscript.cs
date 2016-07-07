@@ -20,7 +20,6 @@ public class eatscript : MonoBehaviour {
 		}
 		dwarfcontroller = gameObject.GetComponent<DwarfController> ();
 		movescript = gameObject.GetComponent<ClickerMover> ();
-
 	}
 	public void eat(){
 		if (gameController.getfoodStock() > 0) {
@@ -34,16 +33,12 @@ public class eatscript : MonoBehaviour {
 			gameController.update_food_record();
 			Debug.Log ("move to food");
 			movescript.setpos(TargetFood.transform.position);
-			
-			
 		}
 	}
 	IEnumerator digere(){
-		
 		yield return new WaitForSeconds (eatduration);
 		dwarfcontroller.setHungerStatus("satieted");
 		Debug.Log("dwarf job : "+dwarfcontroller.getcurrentjob());
-
 		dwarfcontroller.setjobstatut(dwarfcontroller.getcurrentjob());
 		dwarfcontroller.updateStatutText();
 		if (dwarfcontroller.getjobplace() != null && dwarfcontroller.getjob()!="idle") {
@@ -70,14 +65,10 @@ public class eatscript : MonoBehaviour {
 			if(Vector3.Distance(currentposition,foodpos)<Vector3.Distance(currentposition,foodsave)){
 				foodsave=foodpos;
 				save=i;
-				
 			}
-			
-			
 		}
 		Debug.Log ("food position ="+foodlist[save].transform.position);
 		return foodlist[save];
-		
 	}
 
 
@@ -86,7 +77,6 @@ public class eatscript : MonoBehaviour {
 		if (other.tag == "food_being_eat" && Vector3.Distance(transform.position,TargetFood.transform.position)<2 ){
 			Debug.Log ("Trigger de food");
 			Destroy(TargetFood);
-			
 			dwarfcontroller.setHungerStatus("en digestion");
 			dwarfcontroller.updateStatutText();
 			StartCoroutine(digere());
