@@ -42,6 +42,11 @@ public class FarmController : MonoBehaviour {
 		maxfoodstock = ((int)transform.localScale.x*2 * (int)transform.localScale.z*2);
 	}
 
+    public void decrementFoodStock()
+    {
+        currentfoodstock--;
+    }
+
 	public int add_food(){
 		int i, j;
 		for (i = 0; i < (int)transform.localScale.x*2; i++) {

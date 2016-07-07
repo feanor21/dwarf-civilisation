@@ -76,8 +76,15 @@ public class eatscript : MonoBehaviour {
 
 		if (other.tag == "food_being_eat" && Vector3.Distance(transform.position,TargetFood.transform.position)<2 ){
 			Debug.Log ("Trigger de food");
-			Destroy(TargetFood);
-			dwarfcontroller.setHungerStatus("en digestion");
+            GameObject[] farms = GameObject.FindGameObjectsWithTag("farm");
+            for(int i = 0; i < farms.Length; i++){
+                if (farms[i].GetComponent<Collider>().bounds.Contains(other.gameObject.transform.position)){
+                    Debug.Log("Eating inside the farm");
+                    farms[i].GetComponent<FarmController>().decrementFoodStock();
+                }
+            }
+            Destroy(TargetFood);
+            dwarfcontroller.setHungerStatus("en digestion");
 			dwarfcontroller.updateStatutText();
 			StartCoroutine(digere());
 		}
