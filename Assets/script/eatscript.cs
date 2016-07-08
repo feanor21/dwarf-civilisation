@@ -73,12 +73,12 @@ public class eatscript : MonoBehaviour {
 
 
 	void OnTriggerEnter(Collider other){
-
 		if (other.tag == "food_being_eat" && Vector3.Distance(transform.position,TargetFood.transform.position)<2 ){
 			Debug.Log ("Trigger de food");
             GameObject[] farms = GameObject.FindGameObjectsWithTag("farm");
-            for(int i = 0; i < farms.Length; i++){
-                if (farms[i].GetComponent<Collider>().bounds.Contains(other.gameObject.transform.position)){
+            Debug.Log("Length :" + farms.Length);
+            for (int i = 0; i < farms.Length; i++){
+                if (farms[i].GetComponent<Collider>().bounds.Contains(this.gameObject.transform.position)){
                     Debug.Log("Eating inside the farm");
                     farms[i].GetComponent<FarmController>().decrementFoodStock();
                 }

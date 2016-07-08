@@ -285,13 +285,13 @@ public class DwarfController : MonoBehaviour
         if ((horloge.gettime() % timebeforeeat) == 0)
         {
             //	Debug.Log("enter into hunger loop! at "+horloge.gettime ()+ "and bool = "+changeHungerstatut);
-            if (changeHungerstatut && iseating == false)
+            if (changeHungerstatut && iseating == false && isSleaping == false)
             {
                 changeHunger_statut();
                 changeHungerstatut = false;
             }
 
-            if (HungerStatus == "Hungry" && iseating == false)
+            if (HungerStatus == "Hungry" && iseating == false && isSleaping == false)
             {
                 Debug.Log("go to eat!!!");
                 eatscript.eat();
@@ -299,12 +299,12 @@ public class DwarfController : MonoBehaviour
         }
         if (horloge.gettime() % timebeforesleep == 0)
         {
-            if (changeSleepingStatus && isSleaping == false)
+            if (changeSleepingStatus && isSleaping == false && iseating == false)
             {
                 changeSleepingStatus_();
                 changeSleepingStatus = false;
             }
-            if (sleepStatut == "Sleepy" && isSleaping == false)
+            if (sleepStatut == "Sleepy" && isSleaping == false && iseating == false)
             {
                 Debug.Log("Going to sleep !");
                 sleepscript.startsleep();

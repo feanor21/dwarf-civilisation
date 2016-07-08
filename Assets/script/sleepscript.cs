@@ -56,7 +56,7 @@ public class sleepscript : MonoBehaviour {
     private IEnumerator sleep(GameObject theBed){
         if (theBed != null){
             movescript.setpos(theBed.transform.position);
-            yield return new WaitUntil(() => dwarfcontroller.transform.position == theBed.transform.position);
+            yield return new WaitUntil(() => theBed.GetComponent<Collider>().bounds.Contains(dwarfcontroller.transform.position));
         }
         dwarfcontroller.setSleepStatut("Sleeping");
         dwarfcontroller.setcurrentjob(dwarfcontroller.getjob());
