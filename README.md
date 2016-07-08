@@ -43,10 +43,12 @@ La classe SKills défini le focntionnement des skills des personnages. Contient 
 Ajout d'un fichier .gitignore : éditez-le pour ignorer certains fichiers lors du git push
 
 CURRENTLY WORKING ON :
-- Le nain va dodo dans un lit !
+- Le nain va dodo dans un lit ! (Done, will merge soon)
 
-ACTUALLY :
-- Le nain dors dans le lit et retourne au travail par la suite
+NEXT STEP :
+- Le nain coupe du bois
+- Le nain fabrique un atelier pour travailler le bois
+- Le nain fabrique son propre lit depuis l'atelier
 
 KNOWN ISSUES :
 - Quand le nain va dodo, et que son status passe à "Hungry" ou supérieur, le nain ne va pas manger au réveil.
