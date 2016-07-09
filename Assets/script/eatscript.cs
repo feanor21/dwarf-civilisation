@@ -20,7 +20,6 @@ public class eatscript : MonoBehaviour {
 		}
 		dwarfcontroller = gameObject.GetComponent<DwarfController> ();
 		movescript = gameObject.GetComponent<ClickerMover> ();
-
 	}
 	public void eat(){
 		if (gameController.getfoodStock() > 0) {
@@ -34,16 +33,12 @@ public class eatscript : MonoBehaviour {
 			gameController.update_food_record();
 			Debug.Log ("move to food");
 			movescript.setpos(TargetFood.transform.position);
-			
-			
 		}
 	}
 	IEnumerator digere(){
-		
 		yield return new WaitForSeconds (eatduration);
 		dwarfcontroller.setHungerStatus("satieted");
 		Debug.Log("dwarf job : "+dwarfcontroller.getcurrentjob());
-
 		dwarfcontroller.setjobstatut(dwarfcontroller.getcurrentjob());
 		dwarfcontroller.updateStatutText();
 		if (dwarfcontroller.getjobplace() != null && dwarfcontroller.getjob()!="idle") {
@@ -70,24 +65,26 @@ public class eatscript : MonoBehaviour {
 			if(Vector3.Distance(currentposition,foodpos)<Vector3.Distance(currentposition,foodsave)){
 				foodsave=foodpos;
 				save=i;
-				
 			}
-			
-			
 		}
 		Debug.Log ("food position ="+foodlist[save].transform.position);
 		return foodlist[save];
-		
 	}
 
 
 	void OnTriggerEnter(Collider other){
-
 		if (other.tag == "food_being_eat" && Vector3.Distance(transform.position,TargetFood.transform.position)<2 ){
 			Debug.Log ("Trigger de food");
-			Destroy(TargetFood);
-			
-			dwarfcontroller.setHungerStatus("en digestion");
+            GameObject[] farms = GameObject.FindGameObjectsWithTag("farm");
+            Debug.Log("Length :" + farms.Length);
+            for (int i = 0; i < farms.Length; i++){
+                if (farms[i].GetComponent<Collider>().bounds.Contains(this.gameObject.transform.position)){
+                    Debug.Log("Eating inside the farm");
+                    farms[i].GetComponent<FarmController>().decrementFoodStock();
+                }
+            }
+            Destroy(TargetFood);
+            dwarfcontroller.setHungerStatus("en digestion");
 			dwarfcontroller.updateStatutText();
 			StartCoroutine(digere());
 		}

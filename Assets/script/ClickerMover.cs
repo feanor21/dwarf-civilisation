@@ -54,7 +54,7 @@ public class ClickerMover : MonoBehaviour {
         moveset = true;
         posSet = true;
 	}
-
+    
 	public void select(){
 		selected = true;
     }

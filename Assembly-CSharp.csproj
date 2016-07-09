@@ -1,12 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{736D91AD-D21F-A7EC-9EE0-5A4537FD0F15}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -46,25 +45,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\script\litcontroller.cs" />
-    <Compile Include="Assets\script\Camera_Controller.cs" />
-    <Compile Include="Assets\script\ClickerMover.cs" />
-    <Compile Include="Assets\script\DwarfController.cs" />
-    <Compile Include="Assets\script\FarmController.cs" />
-    <Compile Include="Assets\script\GameController.cs" />
-    <Compile Include="Assets\script\Horloge.cs" />
-    <Compile Include="Assets\script\Inventory.cs" />
-    <Compile Include="Assets\script\MouseFollower.cs" />
-    <Compile Include="Assets\script\ObjectTransporter.cs" />
-    <Compile Include="Assets\script\Skills.cs" />
-    <Compile Include="Assets\script\eatscript.cs" />
-    <Compile Include="Assets\script\sleepscript.cs" />
-    <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
-    </Reference>
+     <Compile Include="Assets\script\Camera_Controller.cs" />
+     <Compile Include="Assets\script\ClickerMover.cs" />
+     <Compile Include="Assets\script\DwarfController.cs" />
+     <Compile Include="Assets\script\FarmController.cs" />
+     <Compile Include="Assets\script\GameController.cs" />
+     <Compile Include="Assets\script\Horloge.cs" />
+     <Compile Include="Assets\script\Inventory.cs" />
+     <Compile Include="Assets\script\MouseFollower.cs" />
+     <Compile Include="Assets\script\ObjectTransporter.cs" />
+     <Compile Include="Assets\script\Skills.cs" />
+     <Compile Include="Assets\script\eatscript.cs" />
+     <Compile Include="Assets\script\litcontroller.cs" />
+     <Compile Include="Assets\script\sleepscript.cs" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -74,4 +73,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>
